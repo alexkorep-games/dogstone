@@ -1,6 +1,6 @@
 extends KinematicBody2D
 
-var speed = 100
+var speed = 200
 var velocity = Vector2()
 var directions = [Vector2.UP, Vector2.DOWN, Vector2.LEFT, Vector2.RIGHT]
 
@@ -22,9 +22,12 @@ func _set_direction(new_direction):
 	sprite.rotation = velocity.angle() + PI / 2
 
 func _physics_process(delta):
-	var collision = move_and_collide(velocity * delta)
+	var move_vector = velocity * delta
+	# Check if we hit the player
+	var collision = move_and_collide(move_vector, true, true, true) # Test only
 	if collision and collision.collider.is_in_group("player"):
 		# If we hit the player, reset the level
+		# TODO show a game over screen and animation
 		get_tree().reload_current_scene()
 
 	var dir_to_player = _get_visible_direction_to_player()
@@ -32,9 +35,13 @@ func _physics_process(delta):
 		# If the player is visible, move towards the player
 		spotted = true
 		_set_direction(dir_to_player)
-	elif collision:
-		# Choose a new direction if we hit a wall
-		_choose_direction()
+		print(velocity)
+		move_and_slide(velocity)
+	else:
+		collision = move_and_collide(move_vector)
+		if collision:
+			# Choose a new direction if we hit a wall
+			_choose_direction()
 
 func _get_visible_direction_to_player():
 	# Get the nodes in the group "player"

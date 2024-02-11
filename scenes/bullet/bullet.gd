@@ -22,6 +22,7 @@ func _on_Bullet_body_entered(body):
 		queue_free()
 	elif body.is_in_group("enemies"):
 		queue_free()
+		# TODO show enemy destroyed animation
 		body.queue_free()
 
 func _on_Timer_timeout():
