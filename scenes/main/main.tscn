@@ -32,8 +32,7 @@ show_on_touch_only = true
 
 [node name="CanvasModulate" type="CanvasModulate" parent="."]
 unique_name_in_owner = true
-visible = false
-color = Color( 0, 0, 0, 1 )
+color = Color( 0, 0.145098, 0.145098, 1 )
 
 [node name="Enemies" type="Node2D" parent="."]
 
