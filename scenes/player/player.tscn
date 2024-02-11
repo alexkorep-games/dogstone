@@ -6,7 +6,7 @@
 
 [sub_resource type="CircleShape2D" id=3]
 
-[node name="Player" type="KinematicBody2D"]
+[node name="Player" type="KinematicBody2D" groups=["player"]]
 unique_name_in_owner = true
 script = ExtResource( 2 )
 

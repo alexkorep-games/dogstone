@@ -23,6 +23,10 @@ func _set_direction(new_direction):
 
 func _physics_process(delta):
 	var collision = move_and_collide(velocity * delta)
+	if collision and collision.collider.is_in_group("player"):
+		# If we hit the player, reset the level
+		get_tree().reload_current_scene()
+
 	var dir_to_player = _get_visible_direction_to_player()
 	if dir_to_player != null:
 		# If the player is visible, move towards the player
@@ -30,7 +34,7 @@ func _physics_process(delta):
 		_set_direction(dir_to_player)
 	elif collision:
 		# Choose a new direction if we hit a wall
-		_choose_direction()  
+		_choose_direction()
 
 func _get_visible_direction_to_player():
 	# Get the nodes in the group "player"
