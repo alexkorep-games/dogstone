@@ -1,0 +1,6 @@
+[gd_scene load_steps=2 format=2]
+
+[ext_resource path="res://scenes/touch_detector/touch_detector.gd" type="Script" id=1]
+
+[node name="TouchDetector" type="Node"]
+script = ExtResource( 1 )

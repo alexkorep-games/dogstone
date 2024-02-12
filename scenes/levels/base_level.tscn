@@ -1,4 +1,4 @@
-[gd_scene load_steps=8 format=2]
+[gd_scene load_steps=9 format=2]
 
 [ext_resource path="res://scenes/levels/base_level.gd" type="Script" id=1]
 [ext_resource path="res://scenes/maze/maze.tscn" type="PackedScene" id=2]
@@ -6,6 +6,7 @@
 [ext_resource path="res://scenes/exit/exit.tscn" type="PackedScene" id=4]
 [ext_resource path="res://assets/walls.png" type="Texture" id=5]
 [ext_resource path="res://scenes/joystick/virtual_joystick.tscn" type="PackedScene" id=6]
+[ext_resource path="res://scenes/touch_detector/touch_detector.tscn" type="PackedScene" id=7]
 
 [sub_resource type="TileSet" id=1]
 0/name = "walls.png 0"
@@ -51,6 +52,8 @@ margin_right = 0.0
 margin_bottom = 0.0
 joystick_mode = 1
 show_on_touch_only = true
+
+[node name="TouchDetector" parent="CanvasLayer" instance=ExtResource( 7 )]
 
 [node name="CanvasModulate" type="CanvasModulate" parent="."]
 unique_name_in_owner = true
