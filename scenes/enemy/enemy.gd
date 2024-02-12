@@ -35,7 +35,6 @@ func _physics_process(delta):
 		# If the player is visible, move towards the player
 		spotted = true
 		_set_direction(dir_to_player)
-		print(velocity)
 		move_and_slide(velocity)
 	else:
 		collision = move_and_collide(move_vector)
