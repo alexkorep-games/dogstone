@@ -5,18 +5,27 @@ var bullet_scene = preload("res://scenes/bullet/bullet.tscn")
 var speed = 500 # speed of movement
 var rotation_speed = 5 # speed of rotation
 
-# Called every frame. 'delta' is the elapsed time since the previous frame.
 func _physics_process(delta):
 	var velocity = Vector2() # velocity vector
 
-	var movement_strength = (Input.get_action_strength("ui_up")-Input.get_action_strength("ui_down"))
-	var rotation_strength = (Input.get_action_strength("ui_right")-Input.get_action_strength("ui_left"))
+	var updown_strength = (Input.get_action_strength("ui_up") - Input.get_action_strength("ui_down"))
+	var sidewise_strength = (Input.get_action_strength("ui_right") - Input.get_action_strength("ui_left"))
 
-	# check for key presses
-	if movement_strength:
-		velocity = movement_strength * Vector2(0, -speed).rotated(rotation)
-	if rotation_strength:
-		rotation += rotation_strength * rotation_speed * delta
+	if Input.is_action_pressed("strafe"):
+		# Strafing logic: Move sideways based on sidewise_strength without rotating
+		if sidewise_strength != 0:
+			velocity += Vector2(sidewise_strength, 0).normalized().rotated(rotation) * speed
+		if updown_strength != 0:
+			velocity += Vector2(0, -updown_strength).normalized().rotated(rotation) * speed
+
+		# trim velocity to make sure the player doesn't move faster diagonally
+		velocity = velocity.clamped(speed)
+	else:
+		# Normal movement logic
+		if updown_strength:
+			velocity += Vector2(0, -updown_strength * speed).rotated(rotation)
+		if sidewise_strength:
+			rotation += sidewise_strength * rotation_speed * delta
 
 	# move and slide the node
 	move_and_slide(velocity)
